@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>xhEditor demo15: 设置 document.domain</title>
+<link rel="stylesheet" href="common.css" type="text/css" media="screen" />
+<style type="text/css">
+	.btnMap {
+		width:50px !important;
+		background:transparent url(googlemap/map.gif) no-repeat center center;
+	}
+	.btnCode {
+		background:transparent url(prettify/code.gif) no-repeat 16px 16px;
+		background-position:2px 2px;
+	}
+</style>
+<script type="text/javascript" src="../jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../xheditor.js"></script>
+<script type="text/javascript" src="../xheditor_lang/zh-cn.js"></script>	
+<script type="text/javascript">
+
+function pageInit()
+{
+
+	$('#elm1').xheditor({
+		'tools':'Cut,Copy,Paste,Pastetext,|,Blocktag,FontSize,Bold,Italic,SelectAll,'
+		+ 'Removeformat,|,List,Outdent,Indent,|,Link,Unlink,Img,Hr,Emot,Code,map,|,Source,Print,Fullscreen',
+		'listBlocktag': [{n:'h1'},{n:'h2'},{n:'h3'},{n:'h4'},{n:'h5'},{n:'h6'}]
+	});
+}
+$(function () {
+	document.domain = document.domain;
+	pageInit();
+});
+</script>
+</head>
+<body>
+<div id="header-nav">
+	<ul>
+		<li><a href="demo01.html"><span>默认模式</span></a></li>
+		<li><a href="demo02.html"><span>自定义按钮</span></a></li>
+		<li><a href="demo03.html"><span>皮肤选择</span></a></li>
+		<li><a href="demo04.html"><span>其它选项</span></a></li>
+		<li><a href="demo05.html"><span>API交互</span></a></li>
+		<li><a href="demo06.html"><span>非utf-8编码调用</span></a></li>
+		<li><a href="demo07.html"><span>UBB可视化</span></a></li>
+		<li><a href="demo08.html"><span>Ajax上传</span></a></li>
+		<li><a href="demo09.html"><span>插件扩展</span></a></li>
+		<li><a href="demo10.html"><span>iframe调用上传</span></a></li>
+		<li><a href="demo11.html"><span>异步加载</span></a></li>
+		<li><a href="demo12.html"><span>远程抓图</span></a></li>
+		<li><a href="demo13.html"><span>结合CKFinder</span></a></li>
+		<li><a href="demo14.html"><span>Markdown可视化</span></a></li>
+		<li><a href="../wizard.html" target="_blank"><span>生成代码</span></a></li>
+	</ul>
+</div>
+<form id="frmDemo" method="post" action="show.php">
+	<h3>xhEditor demo15 : 设置 document.domain</h3>
+这个DEMO试验了在页面设置 document.domain 后, xheditor 依然可使用. <br/>
+需要在服务器环境测试 <br>
+比如: 
+npm i http-server -g <br>
+然后在 xheditor 根目录运行 http-server, 然后以服务器地址进入本页,查看编辑器是否可用.
+<br>
+	<textarea id="elm1" name="elm1" rows="30" cols="80" style="width: 90%">
+
+哇咔咔! <br>
+本页使用了 jquery.1.11.2, 因为 新版的 jquery 对 ie8-更不友好,更容易测出 bug. <br>
+初始化代码如下： <br>
+
+
+	$('#elm1').xheditor({
+		'tools':'Cut,Copy,Paste,Pastetext,|,Blocktag,FontSize,Bold,Italic,SelectAll,Removeformat,|,List,Outdent,Indent,|,Link,Unlink,Img,Hr,Emot,Code,map,|,Source,Print,Fullscreen',
+		'listBlocktag': [{n:'h1'},{n:'h2'},{n:'h3'},{n:'h4'},{n:'h5'},{n:'h6'}],
+		'plugins': plugins,
+		'beforeSetSource': Md2HTML,
+		'beforeGetSource': HTML2Md,
+		'loadCSS': markdownCSS
+	});
+
+
+	</textarea><br /><br />
+	<br/><br />
+	<input type="submit" name="save" value="Submit" />
+	<input type="reset" name="reset" value="Reset" />
+</form>
+</body>
+</html>
