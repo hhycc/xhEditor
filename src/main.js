@@ -190,6 +190,19 @@
 			var iframeHTML='<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head>'+headHTML+'<title>{#defaultReadTip} '+(settings.readTip?settings.readTip:'')+'</title>';
 			if(editorBackground)iframeHTML+='<style>html{background:'+editorBackground+';}</style>';
 			iframeHTML+='</head><body spellcheck="0" class="editMode'+bodyClass+'"></body></html>';
+			var iframesource = "javascript:void((function(){document.open();document.domain=\'" + document.domain + "\';document.close();})())"; 
+			
+			// 尝试读取iframe的document.domain,如果失败,表示没有权限,则重设 iframe.src
+			//Permission denied  
+	        try {
+	        	$('#'+idIframe)[0].contentWindow.document.domain;
+	        } catch (e) {
+	        	// 如果出错,则设置 iframe.src,以及在 iframeHTML中增加 document.domain
+	        	// 这句可以让IE能访问到iframe.contentWindow
+	        	$('#'+idIframe)[0].src = iframesource;
+	        	// 这句可以让 ie 可以通过 jq 获取/操作 iframe 中的元素
+	        	iframeHTML += '<script type="text/javascript">document.domain="'+ document.domain +'";</s' + 'cript>';
+	        }  
 			_this.win=_win=$('#'+idIframe)[0].contentWindow;
 			_jWin=$(_win);
 			try{
